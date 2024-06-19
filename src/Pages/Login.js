@@ -1,25 +1,27 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native'
+
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Button } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../Context/AuthContext';
 
-export default function Login() {
+
+
+export default function Login({ }) {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    const { Login, error } = useContext(AuthContext);
+    const { Login, error, setCadastro } = useContext(AuthContext);
 
     function RealizaLogin() {
-       Login( email, senha );
+       Login(email, senha);
     }
-
 
     return (
         <ScrollView contentContainerStyle={css.container}>
-            <Image source={require("../../assets/logo.png")} style={css.logo} />
+            <Image source={require("../../assets/AchadosePerdidos.png")} style={css.logo} />
             <TextInput
                 inputMode="email"
-                placeholder="Email"
+                placeholder="Email do Usuário"
                 style={css.input}
                 value={email}
                 onChangeText={(digitado) => setEmail(digitado)}
@@ -27,7 +29,7 @@ export default function Login() {
             />
             <TextInput
                 inputMode="text"
-                placeholder="Password"
+                placeholder="Senha"
                 secureTextEntry={true}
                 style={css.input}
                 value={senha}
@@ -38,16 +40,20 @@ export default function Login() {
                 <Text style={css.forgotText}>Esqueceu a senha?</Text>
             </View>
             <TouchableOpacity style={css.btnLogin} onPress={RealizaLogin}>
-                <Text style={css.btnLoginText}>Log In</Text>
+                <Text style={css.btnLoginText}>ENTRAR</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={css.btnCadastro} onPress={ () => setCadastro( true ) }>
+                <Text style={css.btnCadastroText}>CADASTRE-SE</Text>
             </TouchableOpacity>
             {error &&
                 <View style={css.error}>
-                    <Text style={css.errorText}>Revise os campos. Tente novamente!</Text>
+                    <Text style={css.errorText}> Email ou Senha incorretos </Text>
                 </View>
             }
         </ScrollView>
     )
 }
+
 const css = StyleSheet.create({
     container: {
         flexGrow: 1,
@@ -89,6 +95,21 @@ const css = StyleSheet.create({
         backgroundColor: "#0195fd"
     },
     btnLoginText: {
+        color: "white",
+        lineHeight: 45,
+        textAlign: "center",
+        fontSize: 15,
+        fontWeight: "bold"
+    },
+    btnCadastro: {
+        width: "90%",
+        height: 50,
+        borderWidth: 1,
+        borderRadius: 10,
+        marginTop: 15,
+        backgroundColor: "#262626"
+    },
+    btnCadastroText: {
         color: "white",
         lineHeight: 45,
         textAlign: "center",
